@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="output.css" />
+    <link rel="stylesheet" href="theme.css" />
+  </head>
+  <body>
+    <div class="items-center my-40 flex justify-around">
+      <div id="input" class="">
+        <img src="assets/images/logo.png" alt="" class="w-40 mx-17 py-2" />
+        <header>
+          <h1 class="text-4xl font-bold black_text py-2">Welcome to cathup</h1>
+          <p class="py-2 px-12 black_text">Test your speed typing with us</p>
+        </header>
+        <div class="items-center gap-2 py-3">
+          <form action="">
+            <div class="px-4 flex items-center gap-3">
+              <i class="fa-solid fa-user"></i>
+              <div class="items-center px-2 input">
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="test@gmail.com"
+                />
+              </div>
+            </div>
+            <div class="px-4 py-3 flex items-center gap-3">
+              <i class="fa-solid fa-lock"></i>
+              <div class="items-center px-2 input">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="password"
+                />
+              </div>
+            </div>
+            <button
+              class="mx-30 px-3 py-1 border-2 black_bgc white_text rounded-2xl hover:scale-125 ease-in-out delay-100"
+            >
+              Login
+            </button>
+            <div class="red_bgc white_text flex justify-around my-2  py-1 rounded-2xl disable" >
+              <p><i class="fa-solid fa-triangle-exclamation"></i>   email or password invalid</p>
+          </div>
+          </form>
+        </div>
+      </div>
+      <img src="assets/images/X0tKyi2y.jpg" alt="" class="w100 h-100" />
+    </div>
+  </body>
+  <script src="login.js"></script>
+</html>
