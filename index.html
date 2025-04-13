@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="output.css">
     <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="black_bgc h-screen">
     <header>
         <nav class="flex flex-row content-center items-center justify-between h-18 shadow-2xl white_bgc black_text">
             <div class="flex flex-row content-center justify-evenly ml-5 h-18 truncate items-center">
@@ -22,19 +23,44 @@
                 <li><a href="" class="flex flex-row justify-between gap-1 navbar_text hover:scale-125 ease-in-out delay-100"><i class="fa-solid fa-paw text-xl"></i><p class="2xl:flex sm:hidden">PROFILE</p></a></li>
             </ul>
         </nav>
-        <h1>Typing Test</h1>
-        <label for="mode">Select Mode:</label>
-        <select id="mode">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-        </select>
     </header>
     
-    <main>
-        <p id="word-display"></p>
-        <input type="text" id="input-field" autofocus>
-        <p id="results">Results : </p>
+    <main class="flex flex-row gap-5 p-2.5">
+        <nav class="p-2.5 mt-5 mb-5 white_bgc rounded-2xl">
+            <label for="mode">Select Mode:</label>
+            <select id="mode">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+
+        </nav>
+
+        <div class="flex flex-col w-5xl p-2.5 mt-5 mb-5 white_bgc rounded-2xl text-xl h-150 black_text">
+            <div class=" pb-5 border-b-2">
+                <h1 class="text-2xl font-bold text-center mb-5">Typing Test</h1>
+                <p id="word-display"></p>
+
+            </div>
+            <div>
+                <input type="text" id="input-field" placeholder="Type here" autofocus class="mt-5 black_text">
+            </div>
+        </div>
+        <div class="flex flex-col mt-5 mb-5 white_bgc rounded-2xl text-2xl black_text w-60 justify-between">
+            <div class="flex flex-col gap-50 p-2.5">
+                <div class="flex flex-col text-center rounded-2xl mt-2.5">
+                    <p id="results" class="text-5xl red_text">Results : </p>
+                    <p class="grey_text text-3xl"> WPM</p>
+                </div>
+                <div class="flex flex-col text-center rounded-2xl">
+                    <p id="progress" class="text-5xl red_text">Progress : </p>
+                    <p class="grey_text text-3xl">Accuracy</p>
+                </div>
+            </div>
+            <div class="red_bgc white_text rounded-b-2xl">
+                <button id="button_restart" class="flex flex-row justify-center w-full text-center items-center h-15 hover:rounded-b-2xl cursor-pointer"><i class="fa-solid fa-arrows-rotate mr-2.5"></i><p>Restart</p></button>
+            </div>
+        </div>
     </main>
 
     <script src="script.js"></script>

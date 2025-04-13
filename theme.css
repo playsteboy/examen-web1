@@ -30,3 +30,17 @@ body{
     color: #f48c8c
 
 }
+.black_text{
+    color: var(--black);
+}
+:hover#button_restart{
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+    background-color: #e05555;
+}
+.red_text{
+    color:var(--red)
+}
+.grey_text{
+    color:var(--grey)
+}
+  

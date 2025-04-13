@@ -1,0 +1,8 @@
+input:focus {
+    outline: none;
+    border: none;
+}
+#button_restart{
+    border: none;
+    outline: none;
+}
