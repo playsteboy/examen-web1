@@ -1,46 +1,58 @@
-body{
-    font-family: 'Poppins', 'Quicksand', sans-serif;
+body {
+  font-family: "Poppins", "Quicksand", sans-serif;
 }
-:root{
-    --black: #2e2e2e;
-    --red:   #ff6b6b;
-    --grey:  #d3d3d3; 
-    --white: #fffafc;
-    --hover_black:#d3d3d3;
-    --hover_red:#e63946;
-    --hover_grey:#2e2e2e;
-    --hover_white:#ffb6c1;
+:root {
+  --black: #2e2e2e;
+  --red: #ff6b6b;
+  --grey: #d3d3d3;
+  --white: #fffafc;
+  --hover_black: #d3d3d3;
+  --hover_red: #e63946;
+  --hover_grey: #2e2e2e;
+  --hover_white: #ffb6c1;
 }
-.red_bgc{
-    background-color: var(--red);
+.red_bgc {
+  background-color: var(--red);
 }
-.black_bgc{
-    background-color: var(--black);
+.black_bgc {
+  background-color: var(--black);
 }
-.white_text{
-    color: var(--white);
+.white_text {
+  color: var(--white);
 }
-.white_bgc{
-    background-color: var(--white);
+.white_bgc {
+  background-color: var(--white);
 }
-.grey_bgc{
-    background-color: var(--grey);
+.grey_bgc {
+  background-color: var(--grey);
 }
-:hover.navbar_text{
-    color: #f48c8c
+:hover.navbar_text {
+  color: #f48c8c;
+}
+.black_text {
+  color: var(--black);
+}
+:hover#button_restart {
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+  background-color: #e05555;
+}
+.red_text {
+  color: var(--red);
+}
+.grey_text {
+  color: var(--grey);
+}
 
+.disable {
+  opacity: 0;
 }
-.black_text{
-    color: var(--black);
+#about button:hover{
+    background-color: var(--hover_red);
 }
-:hover#button_restart{
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
-    background-color: #e05555;
+
+#email, #password{
+  outline: none;
+  padding-left: 2ch;
+  border-radius: 10px;
+  background-color: #d3d3d3;
 }
-.red_text{
-    color:var(--red)
-}
-.grey_text{
-    color:var(--grey)
-}
-  
