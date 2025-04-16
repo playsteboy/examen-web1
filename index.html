@@ -40,12 +40,11 @@
             >
           </li>
           <a
-          href="#about"
-          class="flex flex-row justify-between gap-1 navbar_text hover:scale-125 ease-in-out delay-100"
-          ><i class="fa-solid fa-circle-info text-xl"></i>
-          <p class="2xl:flex sm:hidden">ABOUT</p></a
-        >
-      </li>
+            href="#about"
+            class="flex flex-row justify-between gap-1 navbar_text hover:scale-125 ease-in-out delay-100"
+            ><i class="fa-solid fa-circle-info text-xl"></i>
+            <p class="2xl:flex sm:hidden">ABOUT</p></a
+          >
           <li>
             <a
               href="login.html"
@@ -67,21 +66,42 @@
     </header>
 
     <main class="flex flex-row gap-5 p-2.5 mt-18">
-      <nav class="p-2.5 mt-5 mb-5 white_bgc rounded-2xl">
-        <label for="mode">Select Mode:</label>
-        <select id="mode">
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
-      </nav>
-      <div
-        class="flex flex-col w-5xl p-2.5 mt-5 mb-5 white_bgc rounded-2xl text-xl h-150 black_text"
-      >
-        <div class="pb-5 border-b-2">
-          <h1 class="text-2xl font-bold text-center mb-5">Typing Test</h1>
-          <p id="word-display"></p>
+      <nav class="flex flex-col justify-between white_bgc rounded-md mt-5 mb-5">
+        <div class="p-2.5">
+          <label for="mode">Select Mode:</label>
+          <select id="mode">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
         </div>
+        <div class="flex flex-col justify-end text-2xl rounded-b-md black_text">
+          <button
+            id="button_skip"
+            class="flex flex-row rounded-b-md justify-center w-full text-center items-center h-15 hover:rounded-b-md cursor-pointer grey_bgc"
+          >
+            <i class="fa-solid fa-forward mr-2.5"></i><p>Skip</p>
+          </button>
+        </div>
+      </nav>
+
+      <div class="flex flex-col w-5xl p-2.5 mt-15 mb-5 white_bgc rounded-2xl text-xl h-125 black_text overflow-hidden">
+        <div class=" pb-5 border-b-2">
+            <h1 class="text-2xl font-bold text-center mb-5" id="typingStatus">Typing Test</h1>
+            <p id="word-display" ></p>
+        </div>
+        <div id="displayFinal" class="flex flex-col justify-between gap-3 none">
+            <p id="finalMessage" class="none text-2xl text-center black_text">final message</p>
+            <div>
+                <div id="wpmDisplay" class="none text-6xl text-center score_text">wpmGlobal</div>
+                <p class="text-3xl text-center grey_text">Global WPM</p>
+            </div>
+            <div class="flex flex-col items-center ">
+                <img src="./assets/images/Cute_Kawaii_cat_stickers_-_cat_stickers_-_Kiss-Cut_Stickers-removebg-preview.png" id="finalCat" class="h-100 w-100 none" alt="">
+            </div>
+
+        </div>
+
         <div>
           <input
             type="text"
@@ -92,16 +112,17 @@
           />
         </div>
       </div>
+
       <div
         class="flex flex-col mt-5 mb-5 white_bgc rounded-2xl text-2xl black_text w-60 justify-between"
       >
-        <div class="flex flex-col gap-50 p-2.5">
+        <div class="flex flex-col gap-40 p-2.5">
           <div class="flex flex-col text-center rounded-2xl mt-2.5">
-            <p id="results" class="text-5xl red_text">Results :</p>
+            <p id="results" class="text-5xl score_text">Results :</p>
             <p class="grey_text text-3xl">WPM</p>
           </div>
           <div class="flex flex-col text-center rounded-2xl">
-            <p id="progress" class="text-5xl red_text">Progress :</p>
+            <p id="progress" class="text-5xl score_text">Progress :</p>
             <p class="grey_text text-3xl">Accuracy</p>
           </div>
         </div>
@@ -116,19 +137,38 @@
         </div>
       </div>
     </main>
+
     <div id="about" class="py-60 flex justify-around items-center">
-        <div class="w-100 white_bgc rounded-xl px-8">
-            <h1 class="text-3xl red_text px-15 py-4">About CATHUP</h1>
-            <p class="black_text ">Welcome to CATHUP. We are a website designed by Mikaiah and Ranto, two students from HEI. Cathup is your go-to platform to boost your typing speed and accuarcy in a fun and engaging way. Whetever you're just starting out or you're a keyboard ninja, Cathup helps you level up through interactive typing tests, challenges and progress tracking.</p>
-            <h2 class="grey_text text-2xl  px-25 py-4">Contact us :</h2>
-            <p class="black_text ">Email: hei.ranto.3@gamil.com & hei.mikaiah@gmail.com
-            </p>
-            <p class="black_text  ">Phone : +261 32 52 356 87  +261 34 85 454 62</p>
-            <a href=""><button class="black_bgc white_text px-2 rounded-xl mx-30 my-4">Start Test</button></a>
-        </div>
-        <div>
-            <img src="assets/images/about.jpg" alt="" class="h-100 w-110 white_bgc rounded-xl">
-        </div>
+      <div class="w-100 white_bgc rounded-xl px-8">
+        <h1 class="text-3xl red_text px-15 py-4">About CATHUP</h1>
+        <p class="black_text">
+          Welcome to CATHUP. We are a website designed by Mikaiah and Ranto,
+          two students from HEI. Cathup is your go-to platform to boost your
+          typing speed and accuarcy in a fun and engaging way. Whetever you're
+          just starting out or you're a keyboard ninja, Cathup helps you level
+          up through interactive typing tests, challenges and progress
+          tracking.
+        </p>
+        <h2 class="grey_text text-2xl px-25 py-4">Contact us :</h2>
+        <p class="black_text">
+          Email: hei.ranto.3@gamil.com & hei.mikaiah@gmail.com
+        </p>
+        <p class="black_text">
+          Phone : +261 32 52 356 87 +261 34 85 454 62
+        </p>
+        <a href=""
+          ><button class="black_bgc white_text px-2 rounded-xl mx-30 my-4">
+            Start Test
+          </button></a
+        >
+      </div>
+      <div>
+        <img
+          src="assets/images/about.jpg"
+          alt=""
+          class="h-100 w-110 white_bgc rounded-xl"
+        />
+      </div>
     </div>
 
     <script src="script.js"></script>
