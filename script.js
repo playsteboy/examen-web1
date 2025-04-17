@@ -14,19 +14,17 @@ let countdownInterval = null;
 let timeLeft = null;
 const timerDisplay = document.getElementById("timerDisplay");
 
-
-
 const modeSelect = document.getElementById("mode");
 const wordDisplay = document.getElementById("word-display");
 const inputField = document.getElementById("input-field");
 const results = document.getElementById("results");
 const progress = document.getElementById("progress");
-const finalMessage = document.getElementById("finalMessage")
-const finalCat = document.getElementById("finalCat")
-const typingStatus = document.getElementById("typingStatus")
-const wpmDisplay = document.getElementById("wpmDisplay")
-const displayFinal = document.getElementById("displayFinal")
-const timeMessage = document.getElementById("timeMessage")
+const finalMessage = document.getElementById("finalMessage");
+const finalCat = document.getElementById("finalCat");
+const typingStatus = document.getElementById("typingStatus");
+const wpmDisplay = document.getElementById("wpmDisplay");
+const displayFinal = document.getElementById("displayFinal");
+const timeMessage = document.getElementById("timeMessage");
 
 const words = {
     easy: ["apple", "banana", "grape", "orange", "cherry"],
@@ -42,19 +40,19 @@ const getRandomWord = (mode) => {
 
 // Initialize the typing test
 const startTest = (wordCount = 50) => {
-    typingStatus.classList.remove("bounce")
-    displayFinal.classList.add("none")
-    wpmDisplay.classList.add('none')
-    typingStatus.textContent = "Typing Test"
-    finalCat.classList.add('none')
+    typingStatus.classList.remove("bounce");
+    displayFinal.classList.add("none");
+    wpmDisplay.classList.add('none');
+    typingStatus.textContent = "Typing Test";
+    finalCat.classList.add('none');
     inputField.disabled = false;
-    finalMessage.classList.add('none')
-    wordDisplay.classList.remove('none')
-    inputField.classList.remove('none') 
-    wordsToType.length = 0; // Clear previous words
-    wordDisplay.innerHTML = ""; // Clear display
+    finalMessage.classList.add('none');
+    wordDisplay.classList.remove('none');
+    inputField.classList.remove('none');
+    wordsToType.length = 0;
+    wordDisplay.innerHTML = "";
     currentWordIndex = 0;
-    startTime = Date.now()
+    startTime = null;
     endTime = null;
     previousEndTime = null;
 
@@ -65,7 +63,7 @@ const startTest = (wordCount = 50) => {
     wordsToType.forEach((word, index) => {
         const span = document.createElement("span");
         span.textContent = word + " ";
-        if (index === 0) span.style.color = "#ff6b6b"; // Highlight first word
+        if (index === 0) span.style.color = "#ff6b6b";
         wordDisplay.appendChild(span);
     });
 
@@ -73,48 +71,51 @@ const startTest = (wordCount = 50) => {
     results.textContent = `0.00`;
     progress.textContent = `0.00%`;
 
-    totalWords = 1 ;
-    rate = 0 ;
+    totalWords = 1;
+    rate = 0;
 
-clearInterval(countdownInterval);
-const selectedTime = timerSelect.value;
+    clearInterval(countdownInterval);
+    countdownInterval = null;
 
-if (selectedTime !== "none") {
-    timeMessage.classList.remove('none')
-    timeLeft = parseInt(selectedTime);
-    updateTimerDisplay();
-    countdownInterval = setInterval(() => {
-        timeLeft--;
-        updateTimerDisplay();
-        if (timeLeft <= 0) {
-            clearInterval(countdownInterval);
-            finishTest();
-        }
-    }, 1000);
-} else {
-    timeMessage.classList.add('none')
-    timerDisplay.textContent = "";
-}
+    const selectedTime = timerSelect.value;
 
-
+    if (selectedTime !== "none") {
+        timeMessage.classList.remove('none');
+        timeLeft = parseInt(selectedTime);
+        updateTimerDisplay(); // Ne démarre PAS encore le timer
+    } else {
+        timeMessage.classList.add('none');
+        timerDisplay.textContent = "";
+    }
 };
 
 // Start the timer when user begins typing
 const startTimer = () => {
-    if (!startTime) startTime = Date.now();
+    if (!startTime) {
+        startTime = Date.now();
+
+        if (timerSelect.value !== "none" && !countdownInterval) {
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    finishTest();
+                }
+            }, 1000);
+        }
+    }
 };
 
 // Calculate and return WPM & accuracy
 let totalWords = 0;
-let rate = 0 ;
+let rate = 0;
 const getCurrentStats = () => {
     const now = Date.now();
     const elapsedTime = previousEndTime ? (now - previousEndTime) / 1000 : 1;
 
     const expected = wordsToType[currentWordIndex];
     const typed = inputField.value.trim();
-
-    //if (!expected || !typed) return { bigWpm: "0.00", totalRate: "0.00" };
 
     let correctChars = 0;
     let uncorrectChars = 0;
@@ -128,10 +129,8 @@ const getCurrentStats = () => {
     if (minutes === 0) return { bigWpm: "0.00", totalRate: "0.00" };
 
     const wpm = (expected.length / 5) / minutes;
-
     const accuracy = expected.length ? (correctChars / expected.length) * 100 : 0;
     const bigWpm = wpm * (accuracy / 100);
-
 
     rate += accuracy;
     const totalRate = rate / totalWords;
@@ -139,86 +138,75 @@ const getCurrentStats = () => {
     if (!expected || expected.length === 0 || totalWords === 0) {
         return { bigWpm: "0.00", totalRate: "0.00" };
     }
-    
 
     return { bigWpm: bigWpm.toFixed(2), totalRate: totalRate.toFixed(2) };
 };
 
-
-
 // Move to the next word and update stats only on spacebar press
 const updateWord = (event) => {
-    if (event.key === " ") { // Check if spacebar is pressed
+    if (event.key === " ") {
         if (inputField.value.trim() === wordsToType[currentWordIndex]) {
             if (!previousEndTime) previousEndTime = startTime;
 
             results.style.whiteSpace = "pre-line";
             const { bigWpm, totalRate } = getCurrentStats();
             results.textContent = `${bigWpm}`;
-            progress.textContent = `${totalRate}%`
-            
-            totalWords++
+            progress.textContent = `${totalRate}%`;
+
+            totalWords++;
             currentWordIndex++;
             previousEndTime = Date.now();
             highlightNextWord();
-            
-            inputField.value = ""; // Clear input field after space
-            event.preventDefault(); // Prevent adding extra spaces
-            }
-            else{
-                if (!previousEndTime) previousEndTime = startTime;
-                if (event.key === " ") {
-                    if (inputField.value.trim() === "") {
-                        event.preventDefault(); 
-                        return;
-                    }
-                    
-                }
-        
-                results.style.whiteSpace = "pre-line";
-                const { bigWpm, totalRate } = getCurrentStats();
-                results.textContent = `${bigWpm}`;
-                progress.textContent = `${totalRate}%`
-                
-                totalWords++
-                previousEndTime = Date.now();
-                
-                inputField.value = ""; // Clear input field after space
-                
-                event.preventDefault(); // Prevent adding extra spaces
-            }
-        }
-    };
-    
-    // Highlight the current word in red
-    const highlightNextWord = () => {
-        const wordElements = wordDisplay.children;
 
-        if (currentWordIndex >= wordsToType.length) {
-            displayFinal.classList.remove("none")
-            wpmDisplay.classList.remove('none')
-            if (!endTime) endTime = Date.now();
-                if (startTime) {
-                    const totalElapsedTime = (endTime - startTime) / 1000 / 60;
-                    if (totalElapsedTime <= 0) {
-                        wpmDisplay.textContent = `0.00`;
-                    } else {
-                        const globalWPM = currentWordIndex / totalElapsedTime;
-                        wpmDisplay.textContent = `${globalWPM.toFixed(2)}`;
-                    }
-                }
-                
-            finalCat.classList.remove('none')
-            wordDisplay.classList.add('none')
-            inputField.classList.add('none') 
-            inputField.disabled = true;
-            finalMessage.classList.remove('none')
-            finalMessage.style.whiteSpace = "pre-line";
-            typingStatus.textContent = "Test Is Over !"
-            typingStatus.classList.add("bounce")
-            finalMessage.textContent = `Tap on the restart button to try again or select a new mode`;
-            return;
+            inputField.value = "";
+            event.preventDefault();
+        } else {
+            if (!previousEndTime) previousEndTime = startTime;
+
+            if (event.key === " " && inputField.value.trim() === "") {
+                event.preventDefault();
+                return;
+            }
+
+            results.style.whiteSpace = "pre-line";
+            const { bigWpm, totalRate } = getCurrentStats();
+            results.textContent = `${bigWpm}`;
+            progress.textContent = `${totalRate}%`;
+
+            totalWords++;
+            previousEndTime = Date.now();
+
+            inputField.value = "";
+            event.preventDefault();
         }
+    }
+};
+
+// Highlight the current word in red
+const highlightNextWord = () => {
+    const wordElements = wordDisplay.children;
+
+    if (currentWordIndex >= wordsToType.length) {
+        displayFinal.classList.remove("none");
+        wpmDisplay.classList.remove('none');
+        if (!endTime) endTime = Date.now();
+        if (startTime) {
+            const totalElapsedTime = (endTime - startTime) / 1000 / 60;
+            wpmDisplay.textContent = totalElapsedTime <= 0 ? `0.00` : `${(currentWordIndex / totalElapsedTime).toFixed(2)}`;
+        }
+
+        finalCat.classList.remove('none');
+        wordDisplay.classList.add('none');
+        inputField.classList.add('none');
+        inputField.disabled = true;
+        finalMessage.classList.remove('none');
+        finalMessage.style.whiteSpace = "pre-line";
+        typingStatus.textContent = "Test Is Over !";
+        typingStatus.classList.add("bounce");
+        finalMessage.textContent = `Tap on the restart button to try again or select a new mode`;
+        return;
+    }
+
     if (currentWordIndex < wordElements.length) {
         if (currentWordIndex > 0) {
             wordElements[currentWordIndex - 1].style.color = "#2e2e2e";
@@ -228,49 +216,43 @@ const updateWord = (event) => {
 };
 
 // Event listeners
-// Attach `updateWord` to `keydown` instead of `input`
 inputField.addEventListener("keydown", (event) => {
     startTimer();
     updateWord(event);
 });
+
 modeSelect.addEventListener("change", () => startTest());
 
-// Start the test
+// Start the test initially
 startTest();
 
-const restart = document.getElementById("button_restart")
-
-restart.addEventListener(("click"),()=>{
+const restart = document.getElementById("button_restart");
+restart.addEventListener("click", () => {
     startTest();
-})
+});
 
-const skip = document.getElementById("button_skip")
-skip.addEventListener(("click"),()=>{
-    displayFinal.classList.remove("none")
-    wpmDisplay.classList.remove('none')
+const skip = document.getElementById("button_skip");
+skip.addEventListener("click", () => {
+    displayFinal.classList.remove("none");
+    wpmDisplay.classList.remove('none');
     if (startTime && currentWordIndex > 0) {
         if (!endTime) endTime = Date.now();
         const totalElapsedTime = (endTime - startTime) / 1000 / 60;
-        if (totalElapsedTime <= 0) {
-            wpmDisplay.textContent = `0.00`;
-        } else {
-            const globalWPM = currentWordIndex / totalElapsedTime; 
-            wpmDisplay.textContent = `${globalWPM.toFixed(2)}`;
-        }
+        wpmDisplay.textContent = totalElapsedTime <= 0 ? `0.00` : `${(currentWordIndex / totalElapsedTime).toFixed(2)}`;
     } else {
-        wpmDisplay.textContent = `0.00`; 
+        wpmDisplay.textContent = `0.00`;
     }
-    typingStatus.classList.add("bounce")
-            
-    wordDisplay.classList.add('none')
-    finalCat.classList.remove('none')
-    typingStatus.textContent = "Test Is Over !"
-            inputField.classList.add('none') 
-            inputField.disabled = true;
-            finalMessage.classList.remove('none')
-            finalMessage.style.whiteSpace = "pre-line";
-            finalMessage.textContent = `Tap on the restart button to try again or select a new mode`;
-})
+    typingStatus.classList.add("bounce");
+
+    wordDisplay.classList.add('none');
+    finalCat.classList.remove('none');
+    typingStatus.textContent = "Test Is Over !";
+    inputField.classList.add('none');
+    inputField.disabled = true;
+    finalMessage.classList.remove('none');
+    finalMessage.style.whiteSpace = "pre-line";
+    finalMessage.textContent = `Tap on the restart button to try again or select a new mode`;
+});
 
 function finishTest() {
     displayFinal.classList.remove("none");
@@ -300,4 +282,15 @@ function updateTimerDisplay() {
     timerDisplay.textContent = `0${minutes} : ${seconds.toString().padStart(2, '0')}`;
 }
 
-
+//Select time without restarting the test
+timerSelect.addEventListener("change", () => {
+    const selectedTime = timerSelect.value;
+    if (selectedTime !== "none") {
+        timeLeft = parseInt(selectedTime);
+        timeMessage.classList.remove("none");
+        updateTimerDisplay(); // met à jour l'affichage
+    } else {
+        timeMessage.classList.add("none");
+        timerDisplay.textContent = "";
+    }
+});
