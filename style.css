@@ -18,6 +18,10 @@ input:focus {
     animation: bounce 1.2s ease-in-out infinite;
   }
 
+html, body{
+    height: 100%;
+    overflow: hidden;
+}
 
 
   
