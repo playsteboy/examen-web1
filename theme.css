@@ -89,3 +89,45 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+select {
+  width: 10vw;
+  background-color: #fdf6f6;
+  color: #333;
+  padding: 8px 12px;
+  border: 2px solid #dcdcdc;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  transition: 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: #ff6b6b;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+}
+
+select:hover {
+  background-color: #fffafa;
+}
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  color: #999;
+  pointer-events: none;
+}
+

@@ -67,14 +67,31 @@
 
     <main class="flex flex-row gap-5 p-2.5 mt-18">
       <nav class="flex flex-col justify-between white_bgc rounded-md mt-5 mb-5">
-        <div class="p-2.5">
-          <label for="mode">Select Mode:</label>
-          <select id="mode">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
+        <div class="flex flex-col text-center p-2.5">
+          <label for="mode" class="text-xl">Mode</label>
+          <div class="custom-select-wrapper">
+            <select id="mode">
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+
+          </div>
         </div>
+        <div class="flex flex-col text-center p-2.5">
+
+          <label for="timerSelect" class="text-xl">Timer</label>
+          <div class="custom-select-wrapper">
+
+            <select id="timerSelect">
+              <option value="none">None</option>
+              <option value="60">1 minute</option>
+              <option value="180">3 minutes</option>
+              <option value="300">5 minutes</option>
+            </select>
+          </div>
+        </div>
+
         <div class="flex flex-col justify-end text-2xl rounded-b-md black_text">
           <button
             id="button_skip"
@@ -83,34 +100,43 @@
             <i class="fa-solid fa-forward mr-2.5"></i><p>Skip</p>
           </button>
         </div>
+        
       </nav>
 
-      <div class="flex flex-col w-5xl p-2.5 mt-15 mb-5 white_bgc rounded-2xl text-xl h-125 black_text overflow-hidden">
-        <div class=" pb-5 border-b-2">
-            <h1 class="text-2xl font-bold text-center mb-5" id="typingStatus">Typing Test</h1>
-            <p id="word-display" ></p>
-        </div>
-        <div id="displayFinal" class="flex flex-col justify-between gap-3 none">
-            <p id="finalMessage" class="none text-2xl text-center black_text">final message</p>
-            <div>
-                <div id="wpmDisplay" class="none text-6xl text-center score_text">wpmGlobal</div>
-                <p class="text-3xl text-center grey_text">Global WPM</p>
-            </div>
-            <div class="flex flex-col items-center ">
-                <img src="./assets/images/Cute_Kawaii_cat_stickers_-_cat_stickers_-_Kiss-Cut_Stickers-removebg-preview.png" id="finalCat" class="h-100 w-100 none" alt="">
-            </div>
-
-        </div>
-
+      <div class="flex flex-col justify-between w-5xl p-2.5 mt-15 mb-5 white_bgc rounded-2xl text-xl h-125 black_text overflow-hidden">
         <div>
-          <input
-            type="text"
-            id="input-field"
-            placeholder="Type here"
-            autofocus
-            class="mt-5 black_text"
-          />
+
+          <div class=" pb-5 border-b-2">
+              <h1 class="text-2xl font-bold text-center mb-5" id="typingStatus">Typing Test</h1>
+              <p id="word-display" ></p>
+          </div>
+          <div id="displayFinal" class="flex flex-col justify-between none">
+              <p id="finalMessage" class="none text-2xl text-center black_text">final message</p>
+              <div class="mt-7">
+                  <div id="wpmDisplay" class="none text-6xl text-center score_text">wpmGlobal</div>
+                  <p class="text-3xl text-center grey_text">Global WPM</p>
+              </div>
+              <div class="flex flex-col items-center ">
+                  <img src="./assets/images/Cute_Kawaii_cat_stickers_-_cat_stickers_-_Kiss-Cut_Stickers-removebg-preview.png" id="finalCat" class="h-100 w-100 none" alt="">
+              </div>
+  
+          </div>
+  
+          <div>
+            <input
+              type="text"
+              id="input-field"
+              placeholder="Type here"
+              autofocus
+              class="mt-5 black_text"
+            />
+          </div>
         </div>
+        <div class="flex flex-col text-center">
+          <div id="timerDisplay" class="text-7xl score_text "></div>
+          <div id="timeMessage" class="none grey_text text-3xl">Time</div>
+        </div>
+
       </div>
 
       <div

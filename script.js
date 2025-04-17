@@ -9,6 +9,12 @@ let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
 const wordsToType = [];
 let endTime = null;
+const timerSelect = document.getElementById("timerSelect");
+let countdownInterval = null;
+let timeLeft = null;
+const timerDisplay = document.getElementById("timerDisplay");
+
+
 
 const modeSelect = document.getElementById("mode");
 const wordDisplay = document.getElementById("word-display");
@@ -20,6 +26,8 @@ const finalCat = document.getElementById("finalCat")
 const typingStatus = document.getElementById("typingStatus")
 const wpmDisplay = document.getElementById("wpmDisplay")
 const displayFinal = document.getElementById("displayFinal")
+const timeMessage = document.getElementById("timeMessage")
+
 const words = {
     easy: ["apple", "banana", "grape", "orange", "cherry"],
     medium: ["keyboard", "monitor", "printer", "charger", "battery"],
@@ -67,6 +75,27 @@ const startTest = (wordCount = 50) => {
 
     totalWords = 1 ;
     rate = 0 ;
+
+clearInterval(countdownInterval);
+const selectedTime = timerSelect.value;
+
+if (selectedTime !== "none") {
+    timeMessage.classList.remove('none')
+    timeLeft = parseInt(selectedTime);
+    updateTimerDisplay();
+    countdownInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) {
+            clearInterval(countdownInterval);
+            finishTest();
+        }
+    }, 1000);
+} else {
+    timeMessage.classList.add('none')
+    timerDisplay.textContent = "";
+}
+
 
 };
 
@@ -242,4 +271,33 @@ skip.addEventListener(("click"),()=>{
             finalMessage.style.whiteSpace = "pre-line";
             finalMessage.textContent = `Tap on the restart button to try again or select a new mode`;
 })
+
+function finishTest() {
+    displayFinal.classList.remove("none");
+    wpmDisplay.classList.remove('none');
+
+    if (!endTime) endTime = Date.now();
+    if (startTime) {
+        const totalElapsedTime = (endTime - startTime) / 1000 / 60;
+        const globalWPM = currentWordIndex / (totalElapsedTime > 0 ? totalElapsedTime : 1);
+        wpmDisplay.textContent = `${globalWPM.toFixed(2)}`;
+    }
+
+    typingStatus.textContent = "Test Is Over !";
+    typingStatus.classList.add("bounce");
+    wordDisplay.classList.add("none");
+    inputField.classList.add("none");
+    inputField.disabled = true;
+    finalCat.classList.remove("none");
+    finalMessage.classList.remove("none");
+    finalMessage.style.whiteSpace = "pre-line";
+    finalMessage.textContent = `Tap on the restart button to try again or select a new mode`;
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerDisplay.textContent = `0${minutes} : ${seconds.toString().padStart(2, '0')}`;
+}
+
 
