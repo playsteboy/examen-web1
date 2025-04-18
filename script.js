@@ -288,7 +288,7 @@ timerSelect.addEventListener("change", () => {
     if (selectedTime !== "none") {
         timeLeft = parseInt(selectedTime);
         timeMessage.classList.remove("none");
-        updateTimerDisplay(); // met à jour l'affichage
+        updateTimerDisplay(); 
     } else {
         timeMessage.classList.add("none");
         timerDisplay.textContent = "";
