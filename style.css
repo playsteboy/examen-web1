@@ -23,7 +23,18 @@ html, body{
     overflow: hidden;
 }
 
+#login_image{
+    animation: alternate-reverse 2s infinite animation1;
+}
 
+@keyframes animation1{
+    0%{
+        transform: translateY(1vh);
+    }
+    100%{
+        transform: translateY(-1.5vh);
+}
+}
   
 
 
