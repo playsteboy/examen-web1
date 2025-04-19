@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 body {
-  font-family: "Poppins", "Quicksand", sans-serif;
+  /*font-family: "Poppins", "Quicksand", sans-serif;*/
+  font-family: "Inter", sans-serif;
+}
+#input-field{
+  font-family: 'Fira Mono', monospace;
 }
 :root {
   --black: #2e2e2e;
@@ -82,7 +86,8 @@ body {
   color: var(--red);
 }
 .grey_text {
-  color: #B2BEC3;
+  color: #a0b2bb;
+  margin-top: 4px;
 }
 
 .score_text {
@@ -131,4 +136,13 @@ select:hover {
   color: #999;
   pointer-events: none;
 }
+#typingStatus {
+  background: linear-gradient(90deg, #ff6a6a, #ffa07a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+
+
 

@@ -25,6 +25,9 @@ const typingStatus = document.getElementById("typingStatus");
 const wpmDisplay = document.getElementById("wpmDisplay");
 const displayFinal = document.getElementById("displayFinal");
 const timeMessage = document.getElementById("timeMessage");
+const textLimit = document.getElementById("textLimit")
+const chrono = document.getElementById("chrono")
+const loader_container = document.getElementById('loader_container')
 
 const words = {
     easy: ["apple", "banana", "grape", "orange", "cherry"],
@@ -37,6 +40,18 @@ const getRandomWord = (mode) => {
     const wordList = words[mode];
     return wordList[Math.floor(Math.random() * wordList.length)];
 };
+
+const loader = document.getElementById('loader');
+
+function showLoader(duration = 800, callback = () => {}) {
+    loader.classList.remove('none');
+    loader_container.classList.remove('none')
+    setTimeout(() => {
+        loader.classList.add('none');
+        loader_container.classList.add('none')
+        callback();
+    }, duration);
+}
 
 // Initialize the typing test
 const startTest = (wordCount = 50) => {
@@ -82,7 +97,7 @@ const startTest = (wordCount = 50) => {
     if (selectedTime !== "none") {
         timeMessage.classList.remove('none');
         timeLeft = parseInt(selectedTime);
-        updateTimerDisplay(); // Ne démarre PAS encore le timer
+        updateTimerDisplay();
     } else {
         timeMessage.classList.add('none');
         timerDisplay.textContent = "";
@@ -187,24 +202,36 @@ const highlightNextWord = () => {
     const wordElements = wordDisplay.children;
 
     if (currentWordIndex >= wordsToType.length) {
-        displayFinal.classList.remove("none");
-        wpmDisplay.classList.remove('none');
-        if (!endTime) endTime = Date.now();
-        if (startTime) {
-            const totalElapsedTime = (endTime - startTime) / 1000 / 60;
-            wpmDisplay.textContent = totalElapsedTime <= 0 ? `0.00` : `${(currentWordIndex / totalElapsedTime).toFixed(2)}`;
-        }
-
-        finalCat.classList.remove('none');
-        wordDisplay.classList.add('none');
-        inputField.classList.add('none');
-        inputField.disabled = true;
-        finalMessage.classList.remove('none');
-        finalMessage.style.whiteSpace = "pre-line";
-        typingStatus.textContent = "Test Is Over !";
-        typingStatus.classList.add("bounce");
-        finalMessage.textContent = `Tap on the restart button to try again or select a new mode`;
-        return;
+        displayFinal.classList.add("none");
+            wpmDisplay.classList.add('none');
+            textLimit.classList.add("none")
+            chrono.classList.add("none")
+            inputField.classList.add("none");
+        showLoader(800, () => {
+            inputField.classList.remove("none");
+            textLimit.classList.remove("none")
+            chrono.classList.remove("none")
+            displayFinal.classList.remove("none");
+            wpmDisplay.classList.remove('none');
+            if (!endTime) endTime = Date.now();
+            if (startTime) {
+                const totalElapsedTime = (endTime - startTime) / 1000 / 60;
+                const finalWPM = totalElapsedTime <= 0 ? 0 : (currentWordIndex / totalElapsedTime);
+    animateCounter(wpmDisplay, 0, finalWPM);
+    
+            }
+    
+            finalCat.classList.remove('none');
+            wordDisplay.classList.add('none');
+            inputField.classList.add('none');
+            inputField.disabled = true;
+            finalMessage.classList.remove('none');
+            finalMessage.style.whiteSpace = "pre-line";
+            typingStatus.textContent = "Test Is Over !";
+            typingStatus.classList.add("bounce");
+            finalMessage.textContent = `Want to give it another shot? Click restart or try a new mode`;
+            return;
+        });
     }
 
     if (currentWordIndex < wordElements.length) {
@@ -228,52 +255,77 @@ startTest();
 
 const restart = document.getElementById("button_restart");
 restart.addEventListener("click", () => {
-    startTest();
+        startTest();
 });
 
 const skip = document.getElementById("button_skip");
 skip.addEventListener("click", () => {
-    displayFinal.classList.remove("none");
-    wpmDisplay.classList.remove('none');
-    if (startTime && currentWordIndex > 0) {
-        if (!endTime) endTime = Date.now();
-        const totalElapsedTime = (endTime - startTime) / 1000 / 60;
-        wpmDisplay.textContent = totalElapsedTime <= 0 ? `0.00` : `${(currentWordIndex / totalElapsedTime).toFixed(2)}`;
-    } else {
-        wpmDisplay.textContent = `0.00`;
-    }
-    typingStatus.classList.add("bounce");
-
-    wordDisplay.classList.add('none');
-    finalCat.classList.remove('none');
-    typingStatus.textContent = "Test Is Over !";
-    inputField.classList.add('none');
-    inputField.disabled = true;
-    finalMessage.classList.remove('none');
-    finalMessage.style.whiteSpace = "pre-line";
-    finalMessage.textContent = `Tap on the restart button to try again or select a new mode`;
+    finalCat.classList.add("none");
+        finalMessage.classList.add("none");
+        displayFinal.classList.add("none");
+    chrono.classList.add("none")
+    textLimit.classList.add("none")
+    wordDisplay.classList.add("none");
+    inputField.classList.add("none");
+    showLoader(800, () => {
+        finalCat.classList.remove("none");
+        finalMessage.classList.remove("none");
+        displayFinal.classList.remove("none");
+        chrono.classList.remove("none")
+        textLimit.classList.remove("none")
+        displayFinal.classList.remove("none");
+        wpmDisplay.classList.remove('none');
+        if (startTime && currentWordIndex > 0) {
+            if (!endTime) endTime = Date.now();
+            const totalElapsedTime = (endTime - startTime) / 1000 / 60;
+            const finalWPM = totalElapsedTime <= 0 ? 0 : (currentWordIndex / totalElapsedTime);
+    animateCounter(wpmDisplay, 0, finalWPM);
+    
+        } else {
+            wpmDisplay.textContent = `0.00`;
+        }
+        typingStatus.classList.add("bounce");
+    
+        wordDisplay.classList.add('none');
+        finalCat.classList.remove('none');
+        typingStatus.textContent = "Test Is Over !";
+        inputField.classList.add('none');
+        inputField.disabled = true;
+        finalMessage.classList.remove('none');
+        finalMessage.style.whiteSpace = "pre-line";
+        finalMessage.textContent = `Want to give it another shot? Click restart or try a new mode`;
+    });
 });
 
 function finishTest() {
-    displayFinal.classList.remove("none");
-    wpmDisplay.classList.remove('none');
-
-    if (!endTime) endTime = Date.now();
-    if (startTime) {
-        const totalElapsedTime = (endTime - startTime) / 1000 / 60;
-        const globalWPM = currentWordIndex / (totalElapsedTime > 0 ? totalElapsedTime : 1);
-        wpmDisplay.textContent = `${globalWPM.toFixed(2)}`;
-    }
-
-    typingStatus.textContent = "Test Is Over !";
-    typingStatus.classList.add("bounce");
+    textLimit.classList.add("none")
     wordDisplay.classList.add("none");
     inputField.classList.add("none");
-    inputField.disabled = true;
-    finalCat.classList.remove("none");
-    finalMessage.classList.remove("none");
-    finalMessage.style.whiteSpace = "pre-line";
-    finalMessage.textContent = `Tap on the restart button to try again or select a new mode`;
+    chrono.classList.add("none")
+    showLoader(800, () => {
+        chrono.classList.remove("none")
+        textLimit.classList.remove("none")
+        typingStatus.classList.remove('none')
+        displayFinal.classList.remove("none");
+        wpmDisplay.classList.remove('none');
+    
+        if (!endTime) endTime = Date.now();
+        if (startTime) {
+            const totalElapsedTime = (endTime - startTime) / 1000 / 60;
+            const globalWPM = currentWordIndex / (totalElapsedTime > 0 ? totalElapsedTime : 1);
+            const finalWPM = totalElapsedTime <= 0 ? 0 : (currentWordIndex / totalElapsedTime);
+    animateCounter(wpmDisplay, 0, finalWPM);
+    
+        }
+    
+        typingStatus.textContent = "Test Is Over !";
+        typingStatus.classList.add("bounce");
+        inputField.disabled = true;
+        finalCat.classList.remove("none");
+        finalMessage.classList.remove("none");
+        finalMessage.style.whiteSpace = "pre-line";
+        finalMessage.textContent = `Want to give it another shot? Click restart or try a new mode`;
+    });
 }
 
 function updateTimerDisplay() {
@@ -294,3 +346,44 @@ timerSelect.addEventListener("change", () => {
         timerDisplay.textContent = "";
     }
 });
+
+function animateCounter(element, start, end, duration = 1000) {
+    const range = end - start;
+    let startTime = null;
+
+    function animate(time) {
+        if (!startTime) startTime = time;
+        const progress = time - startTime;
+        const current = Math.min(start + (range * (progress / duration)), end);
+        element.textContent = current.toFixed(2);
+
+        if (progress < duration) {
+            requestAnimationFrame(animate);
+        } else {
+            element.textContent = end.toFixed(2);
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+finalCat.addEventListener('click', () => {
+    finalCat.classList.remove('catScale', 'catWiggle', 'catRotate');
+    void finalCat.offsetWidth;
+    finalCat.classList.add('catScale');
+});
+
+finalCat.addEventListener('animationend', (e) => {
+    if (e.animationName === 'catScale') {
+        finalCat.classList.remove('catScale');
+        void finalCat.offsetWidth;
+        finalCat.classList.add('catWiggle');
+    } else if (e.animationName === 'catWiggle') {
+        finalCat.classList.remove('catWiggle');
+        setTimeout(() => {
+            finalCat.classList.add('catRotate');
+        }, 200);
+    }
+});
+
+
+
