@@ -15,50 +15,57 @@
     <link rel="stylesheet" href="./assets/css/theme.css" />
     <link rel="stylesheet" href="./assets/css/style.css">
   </head>
-  <body class="h-full overflow-hidden">
-    <div class="items-center my-40 flex justify-around">
-      <div id="input" class="">
-        <img src="assets/images/logo.png" alt="" class="w-40 mx-17 py-2" />
-        <header>
-          <h1 class="text-4xl font-bold black_text py-2">Welcome to cathup</h1>
-          <p class="py-2 px-12 black_text">Test your speed typing with us</p>
-        </header>
-        <div class="items-center gap-2 py-3">
-          <form action="">
-            <div class="px-4 flex items-center gap-3">
-              <i class="fa-solid fa-user"></i>
-              <div class="items-center px-2 input">
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  placeholder="test@gmail.com"
-                />
+  <body class="h-full overflow-hidden black_text w-screen">
+    <div class="flex flex-row items-center my-40 justify-around w-screen">
+      <div class="flex flex-col text-center items-center justify-center w-1/2">
+
+        <div id="input">
+          <header>
+            <h1 class="text-5xl font-bold py-2 login-header">Welcome to cathup</h1>
+            <p class="text-xl py-2  black_text">Test your speed typing with us</p>
+          </header>
+          <div class="flex flex-col text-xl items-center gap-2 py-3 w-full ">
+            <form action="">
+              <div class="flex flex-row justify-center text-center items-center gap-3 w-100">
+                <i class="fa-solid fa-user text-2xl"></i>
+                <div class="flex flex-row justify-center items-center input mt-2.5">
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    placeholder="test@gmail.com"
+                    class="flex flex-col justify-center h-10 w-90"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="px-4 py-3 flex items-center gap-3">
-              <i class="fa-solid fa-lock"></i>
-              <div class="items-center px-2 input">
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="password"
-                />
+              <div class="flex flex-row justify-center text-center py-3 items-center gap-3">
+                <i class="fa-solid fa-lock text-2xl"></i>
+                <div class="flex flex-row justify-center items-center input mt-2.5">
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="password"
+                    class="flex flex-col justify-center h-10 w-90"
+                  />
+                </div>
               </div>
+              <button
+                class="px-5 py-1 border-2 black_bgc white_text rounded-2xl hover:scale-125 ease-in-out delay-100 mt-5 w-50"
+              >
+                Login
+              </button>
+              <div class="red_bgc white_text flex justify-around mt-5 py-1 rounded-2xl disable" >
+                <p><i class="fa-solid fa-triangle-exclamation"></i>   email or password invalid</p>
             </div>
-            <button
-              class="mx-30 px-3 py-1 border-2 black_bgc white_text rounded-2xl hover:scale-125 ease-in-out delay-100"
-            >
-              Login
-            </button>
-            <div class="red_bgc white_text flex justify-around my-2  py-1 rounded-2xl disable" >
-              <p><i class="fa-solid fa-triangle-exclamation"></i>   email or password invalid</p>
+            </form>
           </div>
-          </form>
         </div>
       </div>
-      <img src="assets/images/X0tKyi2y.png" alt="" class="w-100 h-100" id="login_image" />
+      <div class="flex flex-col items-center justify-center w-1/2 ">
+        <img src="assets/images/X0tKyi2y.png" alt="" class="w-100 h-100" id="login_image" />
+
+      </div>
     </div>
   </body>
   <script src="./assets/js/login.js"></script>
