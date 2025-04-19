@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+body {
+  /*font-family: "Poppins", "Quicksand", sans-serif;*/
+  font-family: "Inter", sans-serif;
+}
+#input-field{
+  font-family: 'Fira Mono', monospace;
+}
+:root {
+  --black: #2e2e2e;
+  --red: #ff6b6b;
+  --grey: #d3d3d3;
+  --white: #fffafc;
+  --hover_black: #d3d3d3;
+  --hover_red: #e63946;
+  --hover_grey: #2e2e2e;
+  --hover_white: #ffb6c1;
+}
+.red_bgc {
+  background-color: var(--red);
+}
+.black_bgc {
+  background-color: var(--black);
+}
+.white_text {
+  color: var(--white);
+}
+.white_bgc {
+  background-color: var(--white);
+}
+.grey_bgc {
+  background-color: var(--grey);
+}
+:hover.navbar_text {
+  color: #f48c8c;
+}
+.black_text {
+  color: var(--black);
+}
+:hover#button_restart {
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+  background-color: #e05555;
+}
+.red_text {
+  color: var(--red);
+}
+.grey_text {
+  color: var(--grey);
+}
+
+.disable {
+  opacity: 0;
+}
+#about button:hover{
+    background-color: var(--hover_red);
+}
+#email, #password {
+  outline: none;
+  padding-left: 2ch;
+  border-radius: 10px;
+  background-color: #d3d3d3;
+}
+
+#button_restart {
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+:hover#button_restart {
+  background-color: #ffa8a8;
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
+}
+
+#button_skip {
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+:hover#button_skip {
+  background-color: #e6cffe;
+  color: #5a189a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(90, 24, 154, 0.2);
+}
+
+.red_text {
+  color: var(--red);
+}
+.grey_text {
+  color: #a0b2bb;
+  margin-top: 4px;
+}
+
+.score_text {
+  background: linear-gradient(90deg, #ff6b6b, #fffafc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+select {
+  width: 10vw;
+  background-color: #fdf6f6;
+  color: #333;
+  padding: 8px 12px;
+  border: 2px solid #dcdcdc;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  transition: 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: #ff6b6b;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+}
+
+select:hover {
+  background-color: #fffafa;
+}
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  color: #999;
+  pointer-events: none;
+}
+#typingStatus {
+  background: linear-gradient(90deg, #ff6a6a, #ffa07a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+
+
+
